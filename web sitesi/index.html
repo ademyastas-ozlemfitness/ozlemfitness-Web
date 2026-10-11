@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="facebook-domain-verification" content="dwmlwk1uqgdxh0jo8zei65hzvkusn5" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Özlem Fitness Center | Bahçelievler Spor Salonu ve Birebir Ders</title>
 <meta name="description" content="Bahçelievler'de fitness, vücut geliştirme ve birebir ders. Milli sporcu Cengiz Adem Yastaş eşliğinde antrenman. Sporla Başla, Sağlıkla Devam Et.">
@@ -531,7 +532,7 @@ section{padding:clamp(72px,10vw,120px) 0}
 .footer-links .sep{opacity:.5}
 
 /* Çerez bildirimi */
-.cookie-bar{position:fixed;left:0;right:0;bottom:0;z-index:250;background:var(--navy-800);border-top:1px solid var(--line);padding:18px var(--pad);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;box-shadow:0 -8px 30px rgba(0,0,0,.35)}
+.cookie-bar{position:fixed;left:0;right:0;bottom:0;z-index:310;background:var(--navy-800);border-top:1px solid var(--line);padding:18px var(--pad) calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;box-shadow:0 -8px 30px rgba(0,0,0,.35)}
 .cookie-bar[hidden]{display:none}
 .cookie-bar p{margin:0;color:var(--muted);font-size:.88rem;max-width:720px;line-height:1.5}
 .cookie-bar p a{color:var(--blue);font-weight:600}
@@ -1904,10 +1905,10 @@ document.querySelectorAll('[data-gallery]').forEach(function(container){
 
   var acceptBtn = document.getElementById('cookieAccept');
   var rejectBtn = document.getElementById('cookieReject');
-  if (acceptBtn) acceptBtn.addEventListener('click', function(){ saveConsent('accept'); });
-  if (rejectBtn) rejectBtn.addEventListener('click', function(){ saveConsent('reject'); });
+  if (acceptBtn) acceptBtn.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); saveConsent('accept'); });
+  if (rejectBtn) rejectBtn.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); saveConsent('reject'); });
   var prefsLink = document.getElementById('cookiePrefsLink');
-  if (prefsLink) prefsLink.addEventListener('click', function(){ bar.hidden = false; });
+  if (prefsLink) prefsLink.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); bar.hidden = false; });
 })();
 </script>
 </body>
