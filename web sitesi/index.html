@@ -521,6 +521,10 @@ section{padding:clamp(72px,10vw,120px) 0}
 .site-footer{padding:40px 0 32px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
 .footer-line{margin:0}
 .footer-line + .footer-line{margin-top:10px}
+.footer-social{display:flex;justify-content:center;gap:18px}
+.footer-social a{color:var(--muted);display:inline-flex}
+.footer-social a:hover{color:var(--ink)}
+.footer-social svg{width:22px;height:22px}
 .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;list-style:none;padding:0}
 .footer-links a,.footer-links button{color:var(--muted);text-decoration:none;background:none;border:0;padding:0;font:inherit;cursor:pointer}
 .footer-links a:hover,.footer-links button:hover{color:var(--ink)}
@@ -1300,7 +1304,14 @@ section{padding:clamp(72px,10vw,120px) 0}
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
           <div>
             <h3>Instagram</h3>
-            <p><a href="https://www.instagram.com/ozlemfitnesscenter/" target="_blank" rel="noopener" data-track="instagram">@ozlemfitnesscenter</a></p>
+            <p><a href="https://www.instagram.com/ozlemfitnesscenter" target="_blank" rel="noopener" data-track="instagram">@ozlemfitnesscenter</a></p>
+          </div>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.6-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+          <div>
+            <h3>Facebook</h3>
+            <p><a href="https://www.facebook.com/OzlemSpor/" target="_blank" rel="noopener" data-track="facebook">Özlem Spor</a></p>
           </div>
         </li>
       </ul>
@@ -1407,6 +1418,14 @@ section{padding:clamp(72px,10vw,120px) 0}
 <footer class="site-footer">
   <div class="wrap">
     <p class="footer-line">Özlem Fitness Center · İzzettin Çalışlar Cad. No: 31/B, Bahçelievler / İstanbul</p>
+    <p class="footer-line footer-social">
+      <a href="https://www.instagram.com/ozlemfitnesscenter" target="_blank" rel="noopener" aria-label="Instagram" data-track="footer_instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="https://www.facebook.com/OzlemSpor/" target="_blank" rel="noopener" aria-label="Facebook" data-track="footer_facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.6-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+      </a>
+    </p>
     <p class="footer-line">
       <span class="footer-links">
         <a href="kvkk.html">KVKK Aydınlatma Metni</a>
