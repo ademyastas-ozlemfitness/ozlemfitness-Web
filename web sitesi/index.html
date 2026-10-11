@@ -1840,6 +1840,17 @@ document.querySelectorAll('[data-gallery]').forEach(function(container){
       } else if (window.console) {
         console.log('[form] backend henüz bağlanmadı, veri hiçbir yere gönderilmedi:', payload);
       }
+      /* CRM beslemesi: aynı başvuru ayrıca Supabase'e de yazılır (yalnızca ekleme,
+         anon anahtarla okuma yapılamaz — bkz. form_basvurulari tablosu RLS politikası). */
+      fetch('https://auqnxvlzqbkdbzuetsyx.supabase.co/rest/v1/form_basvurulari', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'sb_publishable_I7JBScveEh_cgeJhyMJ7ng_mg2vA_cS',
+          'Authorization': 'Bearer sb_publishable_I7JBScveEh_cgeJhyMJ7ng_mg2vA_cS'
+        },
+        body: JSON.stringify(payload)
+      }).catch(function(){});
     });
   });
 

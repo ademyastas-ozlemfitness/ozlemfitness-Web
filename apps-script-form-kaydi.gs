@@ -75,10 +75,27 @@ function doPost(e) {
       veri.fbc || ''
     ]);
 
+    if (veri.eposta) {
+      try { epostaOnayGonder(veri.eposta, veri.ad); } catch (postaHata) { /* mail gitmese de kayıt zaten yapıldı */ }
+    }
+
     return cevap({ ok: true });
   } catch (hata) {
     return cevap({ ok: false, hata: String(hata) });
   }
+}
+
+function epostaOnayGonder(eposta, ad) {
+  var isim = ad ? ad.split(' ')[0] : '';
+  var konu = 'Başvurun Alındı — Özlem Fitness';
+  var govde =
+    (isim ? 'Merhaba ' + isim + ',' : 'Merhaba,') + '\n\n' +
+    'Özlem Fitness üzerinden gönderdiğin ücretsiz analiz başvurusu bize ulaştı.\n' +
+    'Cengiz Hoca en kısa sürede seni arayacak.\n\n' +
+    'Bu süreçte bir sorun yaşarsan 0536 584 80 18 numarasından bize ulaşabilirsin.\n\n' +
+    'Özlem Fitness Center\n' +
+    'İzzettin Çalışlar Cad. No: 31/B, Bahçelievler / İstanbul';
+  MailApp.sendEmail({ to: eposta, subject: konu, body: govde });
 }
 
 function sayfayiAl() {
