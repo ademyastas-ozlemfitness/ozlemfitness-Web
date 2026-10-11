@@ -137,7 +137,7 @@ function epostaOnayGonder(eposta, ad) {
     'Bu süreçte bir sorun yaşarsan 0536 584 80 18 numarasından bize ulaşabilirsin.\n\n' +
     'Özlem Fitness Center\n' +
     'İzzettin Çalışlar Cad. No: 31/B, Bahçelievler / İstanbul';
-  MailApp.sendEmail({ to: eposta, subject: konu, body: govde });
+  MailApp.sendEmail({ to: eposta, subject: konu, body: govde, name: 'Özlem Fitness Center' });
 }
 
 function sayfayiAl() {
