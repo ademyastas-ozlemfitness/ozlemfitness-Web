@@ -128,7 +128,7 @@ function bekleyenMailleriGonder() {
 }
 
 function epostaOnayGonder(eposta, ad) {
-  var isim = ad ? ad.split(' ')[0] : '';
+  var isim = (typeof ad === 'string' && ad) ? ad.split(' ')[0] : '';
   var konu = 'Başvurun Alındı — Özlem Fitness';
   var govde =
     (isim ? 'Merhaba ' + isim + ',' : 'Merhaba,') + '\n\n' +
