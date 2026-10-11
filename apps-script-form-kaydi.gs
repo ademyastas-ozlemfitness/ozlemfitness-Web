@@ -41,12 +41,19 @@ var BASLIKLAR = [
   'İlk Sayfa',
   'fbclid',
   'fbp',
-  'fbc'
+  'fbc',
+  'Mail Gönderildi'
 ];
 
 var AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
              'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
+/* doPost herkese açık Web App olarak çalışır — buradan MailApp.sendEmail
+   ÇAĞRILMAZ. Google, e-posta gönderme izni (script.send_mail) kullanan
+   projelerde "Herkes" (anonim) erişim seçeneğini sunmuyor; biz de burayı
+   tamamen Sheet yazımıyla sınırlı tutup "Herkes" erişimini koruyoruz.
+   Mail gönderimi ayrı bir fonksiyonda (mailGonder) ve zamanlanmış
+   tetikleyiciyle (aşağıdaki kuruluma bak) arka planda yapılır. */
 function doPost(e) {
   try {
     var veri = JSON.parse(e.postData.contents);
@@ -72,16 +79,51 @@ function doPost(e) {
       veri.ilk_sayfa || '',
       veri.fbclid || '',
       veri.fbp || '',
-      veri.fbc || ''
+      veri.fbc || '',
+      ''                                     // Mail Gönderildi — başlangıçta boş
     ]);
-
-    if (veri.eposta) {
-      try { epostaOnayGonder(veri.eposta, veri.ad); } catch (postaHata) { /* mail gitmese de kayıt zaten yapıldı */ }
-    }
 
     return cevap({ ok: true });
   } catch (hata) {
     return cevap({ ok: false, hata: String(hata) });
+  }
+}
+
+/**
+ * KURULUM (tek seferlik):
+ * Sol menüde saat/çalar saati ikonu (Tetikleyiciler) → + Tetikleyici ekle
+ * → Çalıştırılacak fonksiyon: bekleyenMailleriGonder
+ * → Etkinlik kaynağı: Zamana dayalı → Dakika zamanlayıcısı → Her 5 dakikada
+ * → Kaydet. İlk kaydettiğinde Gmail izni isteyecek, "İzin Ver" de.
+ *
+ * Bu fonksiyon doPost'tan HİÇ çağrılmaz, yalnızca tetikleyiciyle kendi
+ * başına çalışır — bu yüzden Web App'in "Herkes" erişimini bozmaz.
+ */
+function bekleyenMailleriGonder() {
+  var sayfa = sayfayiAl();
+  var sonSatir = sayfa.getLastRow();
+  if (sonSatir < 2) return;
+
+  var EPOSTA_SUTUN = 6;           // F
+  var MAIL_GONDERILDI_SUTUN = 21; // U
+  var AD_SUTUN = 3;               // C
+
+  var veriler = sayfa.getRange(2, 1, sonSatir - 1, MAIL_GONDERILDI_SUTUN).getValues();
+
+  for (var i = 0; i < veriler.length; i++) {
+    var satirNo = i + 2;
+    var eposta = veriler[i][EPOSTA_SUTUN - 1];
+    var gonderildi = veriler[i][MAIL_GONDERILDI_SUTUN - 1];
+    var ad = veriler[i][AD_SUTUN - 1];
+
+    if (eposta && !gonderildi) {
+      try {
+        epostaOnayGonder(eposta, ad);
+        sayfa.getRange(satirNo, MAIL_GONDERILDI_SUTUN).setValue('Evet');
+      } catch (hata) {
+        sayfa.getRange(satirNo, MAIL_GONDERILDI_SUTUN).setValue('Hata: ' + String(hata));
+      }
+    }
   }
 }
 
