@@ -1523,6 +1523,13 @@ nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
     if (id === 'modal-form') {
       var field = document.getElementById('formSourceField');
       if (field) field.value = (triggerEl && triggerEl.getAttribute('data-form-source')) || '';
+      var leadForm = document.getElementById('leadForm');
+      if (leadForm) {
+        leadForm.hidden = false;
+        leadForm.reset();
+        var thanksEl = leadForm.closest('.modal-scroll').querySelector('.form-thanks');
+        if (thanksEl) thanksEl.hidden = true;
+      }
     }
     m.removeAttribute('hidden');
     document.body.classList.add('modal-open');
@@ -1836,18 +1843,6 @@ document.querySelectorAll('[data-gallery]').forEach(function(container){
     });
   });
 
-  /* Form her açılışta (farklı kaynaktan da olsa) temiz başlasın */
-  document.getElementById('modal-form').addEventListener('transitionend', function(){});
-  var origOpen = window.openModal;
-  window.openModal = function(id, triggerEl){
-    if (id === 'modal-form') {
-      form.hidden = false;
-      form.reset();
-      var thanks = form.closest('.modal-scroll').querySelector('.form-thanks');
-      if (thanks) thanks.hidden = true;
-    }
-    origOpen(id, triggerEl);
-  };
 })();
 
 /* ===================== ÇEREZ BİLDİRİMİ ===================== */
