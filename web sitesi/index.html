@@ -1830,8 +1830,10 @@ document.querySelectorAll('[data-gallery]').forEach(function(container){
 
     /* Teşekkür ekranı beklemeden açılır; gönderim arkada tamamlanır. */
     form.hidden = true;
-    var thanks = form.closest('.modal-scroll').querySelector('.form-thanks');
+    var scrollEl = form.closest('.modal-scroll');
+    var thanks = scrollEl.querySelector('.form-thanks');
     if (thanks) thanks.hidden = false;
+    scrollEl.scrollTop = 0;
 
     ipAl(ticariIzin).then(function(ip){
       payload.ip_adresi = ip;
