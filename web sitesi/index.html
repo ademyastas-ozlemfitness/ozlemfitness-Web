@@ -1779,6 +1779,15 @@ document.querySelectorAll('[data-gallery]').forEach(function(container){
     return m ? decodeURIComponent(m[2]) : '';
   }
 
+  /* Çerez barında "Kabul Et" seçilmiş mi?
+     Reklam ölçümüne ait alanlar (Meta tıklama kimlikleri) buna bağlı.
+     Değer okunamazsa (gizli sekme, depolama kapalı) onay YOK sayılıyor —
+     belirsizlikte veri toplamamak doğru taraf. */
+  function cerezOnayiVar(){
+    try { return localStorage.getItem('ozlemfitness_cerez_tercihi') === 'accept'; }
+    catch (e) { return false; }
+  }
+
   /* IP adresi yalnızca ticari ileti izni verildiyse alınır.
      Sebebi hukuki: İYS, web üzerinden alınan ticari ileti onaylarında IP
      adresini zorunlu tutuyor. İzin vermeyen kişinin IP'si hiç sorulmaz. */
@@ -1817,12 +1826,18 @@ document.querySelectorAll('[data-gallery]').forEach(function(container){
       utm_term: k.utm_term || '',
       yonlendiren: k.yonlendiren || '',
       ilk_sayfa: k.ilk_sayfa || '',
-      /* Meta tıklama kimlikleri yalnızca çerez onayı verildiyse var olur.
+      /* Meta tıklama kimlikleri — YALNIZCA çerez onayı verildiyse gönderilir.
          İleride Conversions API ile "bu kişi üye oldu" bilgisini Meta'ya geri
-         göndermek için gerekiyorlar. */
-      fbclid: k.fbclid || '',
-      fbp: cerez('_fbp'),
-      fbc: cerez('_fbc'),
+         göndermek için kullanılacaklar, yani doğrudan reklam takibi.
+
+         _fbp ve _fbc zaten yalnızca Pixel yüklendiyse var oluyor, Pixel de
+         yalnızca "Kabul Et" seçilince yükleniyor. Ama fbclid URL'den geliyor
+         ve onaya bakmadan gönderiliyordu: kişi "Reddet" dediği hâlde reklam
+         tıklama kimliği kaydedilip sonra Meta'ya geri gönderilebilirdi.
+         Reddeden kişinin bu kimlikleri hiç kaydedilmiyor. */
+      fbclid: cerezOnayiVar() ? (k.fbclid || '') : '',
+      fbp: cerezOnayiVar() ? cerez('_fbp') : '',
+      fbc: cerezOnayiVar() ? cerez('_fbc') : '',
       ip_adresi: ''
     };
 
