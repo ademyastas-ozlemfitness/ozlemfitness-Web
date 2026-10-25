@@ -563,11 +563,12 @@ section{padding:clamp(72px,10vw,120px) 0}
   .hero::before{width:100%;background-position:center top;
     -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 62%);
             mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 62%)}
-  .hero{min-height:calc(100vh - 160px)}
-  .hero .wrap{padding-top:120px}
+  .hero{min-height:0}
+  .hero .wrap{padding-top:120px;padding-bottom:16px}
   .btn{width:100%}
   .logo img{height:50px}
   .arrows{display:none}
+  .services{padding:28px 0 clamp(48px,9vw,120px)}
 
   /* Bölüm 2: fotoğraf üstte, yazı altta */
   .more{flex-direction:column;align-items:stretch;min-height:0}
